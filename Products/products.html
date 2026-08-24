@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Navbar/navbar.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./products.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+    <script type="module" src="../firebase.js"></script>
+
+    <title>Productos</title>
+  </head>
+
+  <body>
+    <header>
+      <div id="navbar-placeholder"></div>
+    </header>
+    <div class="container">
+      <div id="notification" class="notification"></div>
+      <main>
+        <div class="header-products container-fluid">
+          <h1>Productos</h1>
+          <div class="control">
+             <form class="d-flex search-form" role="search">
+              <input
+                class="form-control me-2 searchInput"
+                id="searchInput"
+                type="search"
+                placeholder="Producto"
+                aria-label="Search"
+              />
+              <button
+                type="button"
+                class="btn btn-success searchButton"
+                id="searchButton"
+              >
+                Buscar
+              </button>
+            </form>
+          </div>
+          <button
+            type="button"
+            class="btn btn-success"
+            id="openRegisterModal"
+            data-bs-toggle="modal"
+            data-bs-target="#newCustomer"
+          >
+            <i class="fas fa-plus"></i><span> Nuevo Producto</span>
+          </button>
+        </div>
+        <div class="table-responsive" id="tableButtons">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                id="btnStockBajo"
+              >
+                <i class="fas fa-exclamation-triangle"></i>
+                Ver stock bajo
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                id="btnTodosProductos"
+              >
+                <i class="fas fa-list"></i>
+                Ver todos
+              </button>
+            </div>
+
+            <div>
+              <span class="badge bg-danger me-2"> Sin stock </span>
+
+              <span class="badge bg-warning text-dark me-2"> Stock bajo </span>
+
+              <span class="badge bg-success"> Stock OK </span>
+            </div>
+          </div>
+
+          <table class="table table-hover table-bordered" id="table">
+            <!-- LOS DATOS SE CARGARÁN DE FORMA DINÁMICA -->
+          </table>
+        </div>
+      </main>
+    </div>
+    <!--Registro de nuevo producto-->
+    <div
+      class="modal fade"
+      id="newCustomer"
+      tabindex="-1"
+      aria-labelledby="newCustomerlabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Registrar Nuevo Producto</h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="register-form">
+            <div class="modal-body">
+              <div class="field">
+                <label class="label"><strong>Nombre</strong></label>
+                <div class="control">
+                  <input
+                    class="form-control"
+                    name="name"
+                    type="text"
+                    placeholder="Nombre"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label"><strong> Cantidad </strong></label>
+                <div class="control">
+                  <input
+                    class="form-control"
+                    name="quantity"
+                    type="number"
+                    placeholder="Cantidad"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label"><strong> Costo de compra </strong></label>
+                <div class="control">
+                  <input
+                    class="form-control"
+                    name="cost"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="Costo de compra"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label"><strong> Precio de venta </strong></label>
+                <div class="control">
+                  <input
+                    class="form-control"
+                    name="price"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="Precio de venta"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label"><strong> Stock </strong></label>
+                <div class="control">
+                  <input
+                    class="form-control"
+                    name="stock"
+                    type="number"
+                    placeholder="Stock"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id="closeRegisterModal"
+                class="btn btn-warning"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="submit"
+                class="btn btn-success"
+                id="submit"
+                data-bs-dismiss="modal"
+              >
+                <i class="fas fa-save"></i>
+                <span>Registrar</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Formulario de edición de Producto-->
+    <div
+      id="editProducto"
+      class="modal fade"
+      tabindex="-1"
+      aria-labelledby="editProductolabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <header class="modal-header">
+            <h3 class="modal-title">Editar Producto</h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="closeModal"
+            ></button>
+          </header>
+          <div class="modal-body">
+            <form id="edit-form">
+              <div class="field">
+                <label for="edit-name" class="label"
+                  ><strong> Producto </strong></label
+                >
+                <div class="control">
+                  <input type="text" class="input" name="name" required />
+                </div>
+              </div>
+              <div class="field">
+                <label for="edit-cantidad" class="label"
+                  ><strong> Cantidad </strong></label
+                >
+                <div class="control">
+                  <input type="number" class="input" name="quantity" required />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">
+                  <strong> Costo de Compra </strong>
+                </label>
+
+                <div class="control">
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="cost"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">
+                  <strong> Precio de Venta </strong>
+                </label>
+
+                <div class="control">
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="price"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label for="edit-name" class="label"
+                  ><strong> Stock </strong></label
+                >
+                <div class="control">
+                  <input type="number" class="input" name="stock" required />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  id="closeEditModal"
+                  class="btn btn-warning"
+                  data-bs-dismiss="modal"
+                  aria-label="close"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  data-bs-dismiss="modal"
+                >
+                  <i class="fas fa-save"></i>
+                  <span>Guardar</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Vista de Producto-->
+    <div
+      id="viewProduct"
+      class="modal fade"
+      tabindex="-1"
+      aria-labelledby="viewProductolabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Producto</h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="closeViewModal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="content">
+              <p>
+                <strong>Producto:</strong>
+                <span id="name"></span>
+              </p>
+
+              <p>
+                <strong>Cantidad:</strong>
+                <span id="quantity"></span>
+              </p>
+
+              <p>
+                <strong>Costo de compra:</strong>
+                $<span id="cost"></span>
+              </p>
+
+              <p>
+                <strong>Precio de venta:</strong>
+                $<span id="price"></span>
+              </p>
+
+              <p>
+                <strong>Stock:</strong>
+                <span id="stock"></span>
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../Navbar/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>

@@ -1,0 +1,473 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --green: rgb(4, 68, 2);
+  --green-success: #198754;
+  --green-light: #eaf6ee;
+  --white: #ffffff;
+  --dark: #001233;
+  --gray: #f8f9fa;
+  --border: #dee2e6;
+}
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+body {
+  font-family: "Comfortaa", cursive;
+  background-color: #f5f7f6;
+  margin: 0;
+  padding: 0;
+  color: var(--dark);
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+main {
+  padding-top: 90px;
+}
+
+.container {
+  max-width: 1100px;
+
+  margin-top: 30px;
+  margin-bottom: 40px;
+
+  padding: 25px;
+
+  background-color: var(--white);
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================================
+   ENCABEZADO DE VENTAS
+========================================================= */
+
+.header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding-bottom: 18px;
+
+  margin-bottom: 20px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.title {
+  margin: 0;
+}
+
+.title h1 {
+  margin: 0;
+
+  padding: 0;
+
+  background-color: transparent;
+
+  color: var(--green);
+
+  font-size: 2rem;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+.control {
+  display: flex;
+  align-items: center;
+}
+
+.control form {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 0;
+}
+
+.control input {
+  width: 280px;
+  min-width: 220px;
+
+  height: 42px;
+
+  font-family: "Comfortaa", cursive;
+  font-size: 0.9rem;
+
+  border: 1px solid #ced4da;
+
+  border-radius: 7px;
+}
+
+.control input:focus {
+  border-color: var(--green-success);
+
+  box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.15);
+}
+
+/* =========================================================
+   BOTÓN BUSCAR
+========================================================= */
+
+#searchButton {
+  height: 42px;
+
+  padding: 8px 18px;
+
+  border-radius: 7px;
+
+  font-family: "Comfortaa", cursive;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   TABLA
+========================================================= */
+
+.table-responsive {
+  width: 100%;
+
+  border-radius: 8px;
+
+  overflow-x: auto;
+}
+
+.table {
+  margin-top: 0;
+
+  margin-bottom: 0;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  vertical-align: middle;
+}
+
+/* =========================================================
+   ENCABEZADO TABLA
+========================================================= */
+
+.table thead th {
+  height: 52px;
+
+  padding: 12px 10px;
+
+  background-color: var(--green-success) !important;
+
+  color: var(--white) !important;
+
+  border-color: rgba(255, 255, 255, 0.35);
+
+  text-align: center;
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+
+  vertical-align: middle;
+}
+
+/* =========================================================
+   CELDAS
+========================================================= */
+
+.table tbody td {
+  height: 55px;
+
+  padding: 8px 10px;
+
+  text-align: center;
+
+  vertical-align: middle;
+
+  border-color: var(--border);
+
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   INPUTS CANTIDAD / DESCUENTO
+========================================================= */
+
+.table tbody .cantidad,
+.table tbody .descuento {
+  width: 90px;
+
+  height: 36px;
+
+  margin: 0 auto;
+
+  text-align: center;
+
+  font-family: "Comfortaa", cursive;
+
+  font-size: 0.85rem;
+}
+
+.table tbody .cantidad:focus,
+.table tbody .descuento:focus {
+  border-color: var(--green-success);
+
+  box-shadow: 0 0 0 0.15rem rgba(25, 135, 84, 0.12);
+}
+
+/* =========================================================
+   HOVER FILAS
+========================================================= */
+
+.table tbody tr:hover {
+  background-color: var(--green-light);
+}
+
+/* =========================================================
+   TOTAL GENERAL
+========================================================= */
+
+tfoot td {
+  height: 52px;
+
+  padding: 12px;
+
+  background-color: var(--green-success) !important;
+
+  color: var(--white) !important;
+
+  border-color: rgba(255, 255, 255, 0.35);
+
+  font-family: "Comfortaa", cursive;
+
+  font-size: 0.95rem;
+
+  font-weight: 700;
+
+  text-align: center;
+
+  vertical-align: middle;
+}
+
+tfoot .empty {
+  background-color: var(--white) !important;
+
+  border: none;
+}
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+#totalGeneral {
+  font-size: 1.05rem;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   BOTÓN PAGAR
+========================================================= */
+
+#payButton {
+  display: block;
+
+  width: 220px;
+
+  height: 48px;
+
+  margin-top: 22px;
+
+  margin-left: auto;
+
+  border-radius: 8px;
+
+  font-family: "Comfortaa", cursive;
+
+  font-size: 1rem;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   MODALES
+========================================================= */
+
+.modal-content {
+  border: none;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.modal-header {
+  padding: 15px 18px;
+
+  background-color: var(--green-success);
+
+  color: var(--white);
+
+  border: none;
+}
+
+.modal-title {
+  font-size: 1rem;
+
+  font-weight: 700;
+}
+
+.modal-body {
+  padding: 18px;
+}
+
+/* =========================================================
+   PRODUCTOS DEL MODAL
+========================================================= */
+
+.producto-item {
+  background-color: var(--gray);
+
+  border: 1px solid var(--border) !important;
+
+  border-radius: 7px;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.producto-item:hover {
+  background-color: var(--green-light);
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   NOTIFICACIÓN
+========================================================= */
+
+.notification {
+  display: none;
+
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  background-color: var(--green-success);
+
+  color: var(--white);
+
+  padding: 10px 20px;
+
+  border-radius: 5px;
+
+  font-weight: bold;
+
+  z-index: 1050;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  .container {
+    margin-top: 20px;
+
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 15px;
+  }
+
+  .title h1 {
+    text-align: center;
+
+    font-size: 1.7rem;
+  }
+
+  .control {
+    width: 100%;
+  }
+
+  .control form {
+    width: 100%;
+  }
+
+  .control input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  #searchButton {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  #payButton {
+    width: 100%;
+
+    margin-top: 18px;
+  }
+
+  .table {
+    min-width: 850px;
+  }
+}
+
+/* =========================================================
+   MOBILE PEQUEÑO
+========================================================= */
+
+@media (max-width: 575px) {
+  .container {
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border-radius: 8px;
+  }
+
+  .title h1 {
+    font-size: 1.5rem;
+  }
+
+  .control form {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  #searchButton {
+    width: 100%;
+  }
+}

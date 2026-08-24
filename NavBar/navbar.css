@@ -1,0 +1,380 @@
+/* =========================================================
+   NAVBAR - FARMACIA LIBERTAD
+========================================================= */
+
+
+/* =========================================================
+   VARIABLES DEL NAVBAR
+========================================================= */
+
+:root {
+
+    --navbar-green: rgb(4, 68, 2);
+
+    --navbar-green-dark: rgb(2, 45, 1);
+
+    --navbar-green-light: rgb(7, 92, 5);
+
+    --navbar-white: #ffffff;
+
+    --navbar-yellow: #ffb703;
+
+    --navbar-danger: #dc3545;
+
+}
+
+
+/* =========================================================
+   NAVBAR PRINCIPAL
+========================================================= */
+
+.farmacia-navbar {
+
+    min-height: 72px;
+
+    background: linear-gradient(
+        135deg,
+        var(--navbar-green-dark),
+        var(--navbar-green)
+    );
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.20);
+
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    z-index: 1050;
+
+}
+
+
+/* =========================================================
+   INFORMACIÓN DEL USUARIO
+========================================================= */
+
+.farmacia-navbar .navbar-brand {
+
+    margin-right: 25px;
+
+    color: var(--navbar-white);
+
+    cursor: default;
+
+}
+
+
+/* =========================================================
+   ICONO USUARIO
+========================================================= */
+
+.usuario-icono {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.35);
+
+    border-radius: 50%;
+
+    background-color:
+        rgba(255, 255, 255, 0.12);
+
+    color:
+        var(--navbar-white);
+
+    font-size: 1.1rem;
+
+    flex-shrink: 0;
+
+}
+
+
+/* =========================================================
+   NOMBRE USUARIO
+========================================================= */
+
+.usuario-nombre {
+
+    color:
+        var(--navbar-white);
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+/* =========================================================
+   ITEMS DEL MENÚ
+========================================================= */
+
+.navbar-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 42px;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    color:
+        rgba(255, 255, 255, 0.92) !important;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+/* =========================================================
+   ICONOS DEL MENÚ
+========================================================= */
+
+.navbar-item i {
+
+    width: 18px;
+
+    text-align: center;
+
+    font-size: 0.9rem;
+
+}
+
+
+/* =========================================================
+   HOVER ITEMS
+========================================================= */
+
+.navbar-item:hover {
+
+    background-color:
+        rgba(255, 255, 255, 0.14);
+
+    color:
+        var(--navbar-white) !important;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   BOTÓN NUEVO USUARIO
+========================================================= */
+
+.navbar-button {
+
+    border: none;
+
+    background: transparent;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   CERRAR SESIÓN
+========================================================= */
+
+.navbar-logout {
+
+    margin-left: 8px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+
+    background-color:
+        rgba(220, 53, 69, 0.90);
+
+    color:
+        var(--navbar-white) !important;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+}
+
+
+/* =========================================================
+   HOVER CERRAR SESIÓN
+========================================================= */
+
+.navbar-logout:hover {
+
+    background-color:
+        var(--navbar-danger);
+
+    color:
+        var(--navbar-white) !important;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   BOTÓN MOBILE
+========================================================= */
+
+.farmacia-navbar .navbar-toggler {
+
+    border-color:
+        rgba(255, 255, 255, 0.40);
+
+    padding:
+        6px 9px;
+
+}
+
+
+.farmacia-navbar .navbar-toggler:focus {
+
+    box-shadow:
+        0 0 0 0.2rem
+        rgba(255, 255, 255, 0.15);
+
+}
+
+
+/* =========================================================
+   MENÚ MOBILE
+========================================================= */
+
+@media (max-width: 991px) {
+
+
+    .farmacia-navbar .navbar-collapse {
+
+        margin-top: 12px;
+
+        padding-top: 10px;
+
+        border-top:
+            1px solid
+            rgba(255, 255, 255, 0.15);
+
+    }
+
+
+    .farmacia-navbar .navbar-nav {
+
+        width: 100%;
+
+    }
+
+
+    .navbar-item {
+
+        width: 100%;
+
+        justify-content: flex-start;
+
+        padding:
+            11px 14px;
+
+        margin-bottom: 3px;
+
+    }
+
+
+    .navbar-logout {
+
+        width: 100%;
+
+        margin-left: 0;
+
+        margin-top: 8px;
+
+        justify-content: center;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUEÑO
+========================================================= */
+
+@media (max-width: 575px) {
+
+
+    .farmacia-navbar {
+
+        min-height: 64px;
+
+    }
+
+
+    .farmacia-navbar .navbar-brand {
+
+        margin-right: 10px;
+
+    }
+
+
+    .usuario-icono {
+
+        width: 36px;
+        height: 36px;
+
+        font-size: 0.9rem;
+
+    }
+
+
+    .usuario-nombre {
+
+        font-size: 0.85rem;
+
+    }
+
+
+}
+
+
+/* =========================================================
+   ESPACIO PARA NAVBAR FIXED-TOP
+========================================================= */
+
+body {
+
+    padding-top: 72px;
+
+}
+
+
+

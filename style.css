@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
+
+/* =========================================================
+   VARIABLES GLOBALES
+========================================================= */
+
+:root {
+    --color-primary: #046c04;
+    --color-primary-dark: #034d03;
+    --color-primary-light: #198754;
+
+    --color-secondary: #ffb703;
+
+    --color-dark: #001233;
+    --color-white: #ffffff;
+
+    --color-background: #f4f7f5;
+    --color-border: #dee2e6;
+    --color-text: #212529;
+    --color-muted: #6c757d;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.12);
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+}
+
+
+/* =========================================================
+   RESET / BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Comfortaa", sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    background-color: var(--color-primary);
+    padding: 8px 0;
+    position: relative;
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    z-index: 1000;
+}
+
+.navbar-title {
+    margin: 0;
+    color: var(--color-white);
+    font-weight: 700;
+    text-align: center;
+    font-size: 2rem;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+#ingreso {
+    width: 100%;
+    max-width: 560px !important;
+    margin: 70px auto 40px;
+    border: none;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* =========================================================
+   LOGIN - HEADER
+========================================================= */
+
+#ingreso .card-header {
+    height: auto;
+    margin: 0;
+    padding: 25px 20px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    text-align: center;
+}
+
+#ingreso .card-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LOGIN - BODY
+========================================================= */
+
+#ingreso .card-body {
+    padding: 35px;
+}
+
+
+/* =========================================================
+   FORMULARIOS
+========================================================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 7px;
+    font-weight: 600;
+    color: var(--color-dark);
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.form-control,
+.form-select {
+    min-height: 45px;
+    height: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: "Comfortaa", sans-serif;
+    font-size: 1rem;
+    padding: 10px 12px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15);
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+button,
+.btn {
+    font-family: "Comfortaa", sans-serif;
+}
+
+button {
+    height: auto;
+}
+
+.btn {
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   BOTÓN LOGIN
+========================================================= */
+
+#login-form button[type="submit"] {
+    min-height: 48px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .navbar-title {
+        font-size: 1.6rem;
+    }
+
+    #ingreso {
+        margin-top: 40px;
+        width: calc(100% - 30px);
+    }
+
+    #ingreso .card-body {
+        padding: 25px 20px;
+    }
+
+    #ingreso .card-header h3 {
+        font-size: 1.4rem;
+    }
+
+}

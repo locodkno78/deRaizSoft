@@ -1,0 +1,816 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
+
+/* VARIABLES */
+
+:root {
+  --color-primary-dark: #003b2f;
+  --color-primary: #046b3d;
+  --color-primary-light: #e8f5ee;
+
+  --color-white: #ffffff;
+  --color-text: #263238;
+  --color-muted: #6c757d;
+
+  --color-border: #dee2e6;
+  --color-background: #f5f7f8;
+
+  --color-warning: #ffb703;
+  --color-danger: #dc3545;
+  --color-success: #198754;
+  --color-info: #0d6efd;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  --shadow-md: 0 5px 18px rgba(0, 0, 0, 0.1);
+
+  --radius: 10px;
+}
+
+/* BODY */
+
+body {
+  margin: 0;
+
+  font-family: "Comfortaa", cursive;
+
+  background-color: var(--color-background);
+
+  color: var(--color-text);
+
+  min-height: 100vh;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+.container {
+  width: 100%;
+
+  max-width: 1400px;
+
+  margin-top: 105px;
+
+  margin-bottom: 40px;
+
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* ENCABEZADO PRODUCTOS */
+
+.header-products {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  margin-bottom: 25px;
+}
+
+/* Título */
+
+.header-products h1 {
+  margin: 0;
+  flex-shrink: 0;
+
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+/* Buscador */
+
+.control {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+}
+
+.search-form {
+  width: 100%;
+  max-width: 500px;
+  gap: 10px;
+}
+
+.searchInput {
+  flex: 1;
+}
+
+.searchButton {
+  min-width: 110px;
+}
+
+/* Botón Nuevo */
+
+#openRegisterModal {
+  flex-shrink: 0;
+}
+
+/* TÍTULOS */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Comfortaa", cursive;
+}
+
+h2 {
+  color: var(--color-primary-dark);
+
+  font-weight: 700;
+}
+
+/* CARD GENERAL */
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow-sm);
+
+  overflow: hidden;
+
+  background-color: var(--color-white);
+}
+
+/* CARD HEADER */
+
+.card-header {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-dark),
+    var(--color-primary)
+  );
+
+  color: var(--color-white);
+
+  border: none;
+
+  padding: 15px 20px;
+
+  font-weight: 700;
+}
+
+/* CARD BODY */
+
+.card-body {
+  padding: 22px;
+}
+
+/* BUSCADOR */
+
+#searchInput {
+  min-height: 44px;
+
+  border: 1px solid var(--color-border);
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 0.9rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#searchInput:focus {
+  border-color: var(--color-primary);
+
+  box-shadow: 0 0 0 0.2rem rgba(4, 107, 61, 0.12);
+}
+
+/* BOTÓN BUSCAR */
+
+.searchButton {
+  min-height: 44px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-weight: 600;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.searchButton:hover {
+  transform: translateY(-1px);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* BOTONES GENERALES */
+
+.btn {
+  font-family: inherit;
+
+  font-weight: 600;
+
+  border-radius: 7px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* BOTÓN NUEVO PRODUCTO */
+
+#openRegisterModal {
+  min-height: 44px;
+
+  padding-left: 18px;
+  padding-right: 18px;
+
+  font-weight: 700;
+
+  box-shadow: 0 3px 8px rgba(25, 135, 84, 0.18);
+}
+
+/* BOTONES DE FILTRO */
+
+#btnStockBajo,
+#btnTodosProductos {
+  min-height: 40px;
+  font-size: 0.85rem;
+}
+
+/* =====================================================
+   TABLA
+===================================================== */
+
+.table-responsive {
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+#table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+}
+
+/* Encabezado */
+#table thead th{
+  background-color: var(--color-primary);
+
+  color: var(--color-white);
+
+  font-weight: 700;
+
+  padding: 12px 14px;
+
+  border-color: #e9ecef;
+
+  vertical-align: middle;
+}
+#table thead th,
+#table tbody td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Celdas */
+
+#table tbody td {
+  padding: 11px 12px;
+  border-color: #e9ecef;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Hover */
+
+#table tbody tr {
+  transition: 0.15s;
+}
+
+#table tbody tr:hover {
+  background: var(--color-primary-light);
+}
+
+/* Nombre */
+
+#table th:nth-child(1),
+#table td:nth-child(1) {
+  min-width: 280px;
+  text-align: left;
+}
+
+/* Cantidad */
+
+#table th:nth-child(2),
+#table td:nth-child(2) {
+  min-width: 70px;
+  text-align: center;
+}
+
+/* Costo */
+
+#table th:nth-child(3),
+#table td:nth-child(3) {
+  min-width: 110px;
+  text-align: center;
+}
+
+/* Precio */
+
+#table th:nth-child(4),
+#table td:nth-child(4) {
+  min-width: 110px;
+  text-align: center;
+}
+
+/* Stock */
+
+#table th:nth-child(5),
+#table td:nth-child(5) {
+  min-width: 75px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Estado */
+
+#table th:nth-child(6),
+#table td:nth-child(6) {
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Componentes */
+
+#table th:nth-child(7),
+#table td:nth-child(7) {
+  max-width: 190px;
+  text-align: center;
+}
+
+/* Acciones */
+
+#table th:nth-child(9),
+#table td:nth-child(9) {
+  min-width: 130px;
+  text-align: center;
+}
+
+/* BOTONES DE ACCIONES DE TABLA */
+
+.button-view,
+.button-edit,
+.button-delete {
+  width: 34px;
+
+  height: 34px;
+
+  padding: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 7px;
+
+  margin: 2px;
+  background-color: var(--color-primary);
+}
+
+.button-view,
+.button-edit,
+.button-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.button-view i,
+.button-edit i,
+.button-delete i {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.button-view:hover,
+.button-edit:hover,
+.button-delete:hover {
+  transform: translateY(-1px);
+}
+
+/* MODALES */
+
+.modal-content {
+  border: none;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-dark),
+    var(--color-primary)
+  );
+
+  color: var(--color-white);
+
+  border-bottom: none;
+
+  padding: 16px 20px;
+}
+
+.modal-title {
+  font-size: 1rem;
+
+  font-weight: 700;
+}
+
+.modal-body {
+  font-size: 0.9rem;
+
+  padding: 22px;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
+
+  border-top: 1px solid var(--color-border);
+
+  padding: 14px 20px;
+}
+
+/* FORMULARIOS */
+
+.form-label {
+  color: var(--color-text);
+
+  font-size: 0.82rem;
+
+  font-weight: 700;
+
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select,
+.input {
+  min-height: 42px;
+
+  border: 1px solid var(--color-border);
+
+  border-radius: 7px;
+
+  font-family: inherit;
+
+  font-size: 0.85rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus,
+.input:focus {
+  border-color: var(--color-primary);
+
+  box-shadow: 0 0 0 0.2rem rgba(4, 107, 61, 0.12);
+}
+
+/* TEXTO DE AYUDA */
+
+.form-text {
+  color: var(--color-muted);
+
+  font-size: 0.72rem;
+}
+
+/* MODAL VER PRODUCTO */
+
+#viewProduct .modal-body {
+  background-color: #fafbfb;
+}
+
+#viewProduct .modal-body strong {
+  color: var(--color-primary-dark);
+}
+
+/* BOTONES MODALES */
+
+#registerProduct,
+#updateProduct {
+  min-width: 130px;
+
+  font-weight: 700;
+}
+
+/* ESTADO VACÍO */
+
+#table tbody td[colspan] {
+  color: var(--color-muted);
+
+  padding-top: 35px;
+
+  padding-bottom: 35px;
+}
+
+/* ALERTAS / MENSAJES */
+
+.alert {
+  border-radius: 8px;
+
+  font-size: 0.85rem;
+}
+
+/* RESPONSIVE - TABLET */
+
+@media (max-width: 991px) {
+  .container {
+    margin-top: 95px;
+
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .card-body {
+    padding: 18px;
+  }
+
+  #table {
+    font-size: 0.8rem;
+  }  
+
+  .header-products {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .header-products h1 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .control {
+    width: 100%;
+  }
+
+  .search-form {
+    max-width: 100%;
+  }
+
+  #openRegisterModal {
+    width: 100%; 
+
+}
+}
+
+
+
+/* RESPONSIVE - MOBILE */
+
+@media (max-width: 767px) {
+  .container {
+    margin-top: 90px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* ---------------------------------------------
+   ENCABEZADO
+--------------------------------------------- */
+
+  .card-header {
+    padding: 13px 15px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  /* ---------------------------------------------
+   BUSCADOR
+--------------------------------------------- */
+
+  #searchInput {
+    font-size: 0.82rem;
+  }
+
+  .searchButton {
+    width: 100%;
+  }
+
+  /* ---------------------------------------------
+   BOTÓN NUEVO
+--------------------------------------------- */
+
+  #openRegisterModal {
+    width: 100%;
+
+    margin-top: 8px;
+  }
+
+  /* ---------------------------------------------
+   FILTROS
+--------------------------------------------- */
+
+  #btnStockBajo,
+  #btnTodosProductos {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  /* ---------------------------------------------
+   TABLA
+--------------------------------------------- */
+
+  .table-responsive {
+    border: 1px solid var(--color-border);
+  }
+
+  #table {
+    min-width: 900px;
+
+    font-size: 0.78rem;
+  }
+
+  /* ---------------------------------------------
+   MODALES
+--------------------------------------------- */
+
+  .modal-dialog {
+    margin: 10px;
+  }
+
+  .modal-body {
+    padding: 17px;
+  }
+
+  .modal-footer {
+    padding: 12px 15px;
+  }
+}
+
+/* MOBILE PEQUEÑO */
+
+@media (max-width: 575px) {
+  .container {
+    margin-top: 82px;
+  }
+
+  .modal-title {
+    font-size: 0.9rem;
+  }
+
+  .modal-body {
+    font-size: 0.82rem;
+  }
+
+  .form-control,
+  .form-select,
+  .input {
+    font-size: 0.8rem;
+  }
+}
+
+/* IMPRESIÓN */
+
+@media print {
+  body {
+    background-color: #ffffff;
+
+    color: #000000;
+
+    font-size: 12pt;
+  }
+
+  .farmacia-navbar,
+  .button-back,
+  .btn-info,
+  .btn-danger,
+  .searchButton,
+  .searchInput,
+  #searchInput,
+  #openRegisterModal,
+  #btnStockBajo,
+  #btnTodosProductos,
+  .card .card-header,
+  .card .card-body,
+  .button-view,
+  .button-edit,
+  .button-delete,
+  .navbar-title {
+    display: none !important;
+  }
+
+  .container {
+    max-width: 100%;
+
+    margin-top: 0;
+
+    padding: 0;
+  }
+
+  .table-responsive {
+    overflow: visible;
+  }
+
+  #table {
+    width: 100%;
+
+    font-size: 10pt;
+
+    color: #000000;
+  }
+
+  #table thead th {
+    background-color: #ffffff !important;
+
+    color: #000000 !important;
+
+    border: 1px solid #000000;
+  }
+
+  #table tbody td {
+    border: 1px solid #000000;
+
+    color: #000000;
+  }
+
+  th.hidden,
+  td.hidden {
+    display: none !important;
+  }
+
+  .row {
+    margin-top: 0;
+  }
+}
+
+/* AJUSTE BOTONES - BUSCAR / NUEVO PRODUCTO */
+
+/* Botón Buscar */
+.searchButton {
+  min-height: 42px;
+  height: 42px;
+
+  padding: 8px 16px;
+
+  font-size: 0.85rem;
+
+  border-radius: 7px;
+}
+
+/* Botón Nuevo Producto */
+#openRegisterModal {
+  min-height: 42px;
+  height: 42px;
+
+  padding: 8px 16px;
+
+  margin-left: 12px;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  border-radius: 7px;
+
+  box-shadow: 0 2px 6px rgba(25, 135, 84, 0.15);
+}
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+  #openRegisterModal {
+    width: 100%;
+
+    height: 42px;
+
+    margin-left: 0;
+
+    margin-top: 10px;
+  }
+}
