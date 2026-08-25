@@ -53,6 +53,45 @@ document.getElementById("searchButton").addEventListener("click", async () => {
   }
 });
 
+// Función de búsqueda de clientes
+document
+  .getElementById("searchClientButton")
+  .addEventListener("click", async () => {
+    const searchInputClient = document
+      .getElementById("searchInputClient")
+      .value.trim()
+      .toLowerCase();
+    if (searchInputClient === "") {
+      alert("Ingrese un nombre de cliente para buscar.");
+      return;
+    }
+    try {
+      const clientesRef = collection(db, "clientes");
+      const querySnapshot = await getDocs(clientesRef);
+
+      let clientesEncontrados = [];
+
+      querySnapshot.forEach((doc) => {
+        let cliente = doc.data();
+        if (cliente.name.toLowerCase().includes(searchInputClient)) {
+          clientesEncontrados.push({ id: doc.id, ...cliente });
+        }
+      });
+
+      if (clientesEncontrados.length > 0) {
+        mostrarClientesEnModal(clientesEncontrados);
+      } else {
+        alert("No se encontraron clientes.");
+      }
+    } catch (error) {
+      console.error("Error al buscar clientes:", error);
+    }
+  });
+
+document.getElementById("searchInputClient").addEventListener("input", (event) => {
+  delete event.currentTarget.dataset.clientId;
+});
+
 // Función para mostrar productos en un modal
 function mostrarProductosEnModal(productos) {
   let modalBody = document.getElementById("modalBody");
@@ -96,6 +135,48 @@ function mostrarProductosEnModal(productos) {
 
       agregarATabla(id, nombre, precio, costo, stock);
 
+      modal.hide();
+    });
+  });
+}
+
+// Función para mostrar clientes en un modal y permitir su selección
+function mostrarClientesEnModal(clientes) {
+  const modalBody = document.getElementById("clientModalBody");
+  modalBody.innerHTML = "";
+
+  clientes.forEach((cliente) => {
+    const clienteItem = document.createElement("div");
+    clienteItem.classList.add("cliente-item");
+    clienteItem.innerHTML = `
+      <div class="cliente-info">
+        <strong>${cliente.name} ${cliente.surname || ""}</strong>
+        <span>DNI: ${cliente.dni || "No informado"}</span>
+        <span>${cliente.phone || "Sin teléfono"} · ${cliente.email || "Sin email"}</span>
+      </div>
+      <button
+        type="button"
+        class="btn btn-success btn-sm seleccionar-cliente"
+        data-id="${cliente.id}"
+        data-name="${cliente.name}"
+        data-surname="${cliente.surname || ""}"
+      >
+        Seleccionar
+      </button>
+    `;
+    modalBody.appendChild(clienteItem);
+  });
+
+  const modalElement = document.getElementById("clientModal");
+  const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+  modal.show();
+
+  modalBody.querySelectorAll(".seleccionar-cliente").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nombreCompleto = `${button.dataset.name} ${button.dataset.surname}`.trim();
+      const input = document.getElementById("searchInputClient");
+      input.value = nombreCompleto;
+      input.dataset.clientId = button.dataset.id;
       modal.hide();
     });
   });
@@ -304,6 +385,19 @@ document
 
       const formaPago = formaPagoSeleccionada.value;
 
+      const clienteInput = document.getElementById("searchInputClient");
+      const clienteId = clienteInput.dataset.clientId;
+
+      if (!clienteId) {
+        Swal.fire({
+          title: "Seleccioná un cliente",
+          text: "Buscá y seleccioná un cliente antes de confirmar la venta.",
+          icon: "warning",
+        });
+
+        return;
+      }
+
       const cuotas =
         formaPago === "credito"
           ? Number(document.getElementById("cuotas").value)
@@ -381,6 +475,10 @@ document
       // 4. CREAR DATOS DE LA VENTA
 
       const ventaData = {
+        clienteId: clienteId,
+
+        clienteNombre: clienteInput.value,
+
         usuarioId: user ? user.uid : null,
 
         usuarioNombre: usuarioNombre,
@@ -441,6 +539,9 @@ document
       productosEnTabla = [];
 
       document.getElementById("totalGeneral").textContent = "$0.00";
+
+      clienteInput.value = "";
+      delete clienteInput.dataset.clientId;
 
       // 11. ACTUALIZAR VISTA
 
