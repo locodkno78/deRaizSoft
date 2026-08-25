@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
+
+:root {
+    --dark: #001233;
+    --white: #ffff;
+    --yellow: #ffb703;
+    --green: rgb(4, 68, 2);
+}
+
+body {
+    font-family: "Comfortaa", cursive;
+}
+
+/* Header */
+header {
+    background-color: var(--green);
+    padding: 10px 0;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-title {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 40px;
+    transition: color 3s ease-in-out;
+}
+
+.modal-body {
+    font-size: 30px;
+}
+
+.modal-header {
+    background-color: var(--green);
+    color: var(--white);
+}
+/* Estilos para dispositivos pequeños */
+@media (max-width: 768px) {
+    .navbar-title {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .collapse,
+    .navbar-collapse {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Tabla */
+.header {
+    margin-top: 5%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilos generales para hacer que la tabla sea responsive */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Formularios */
+.modal-body form .field {
+    margin-bottom: 10px;
+}
+
+.modal-body form .field label {
+    text-align: center;
+}
+
+.modal-body form .field .control {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.modal-body form .field .control input,
+.modal-body form .field .control select,
+.modal-body form .field .control textarea {
+    width: 100%;
+}
+
+.modal-body form .field .control button {
+    width: 100%;
+}
+
+/* Contenido de modal */
+.modal-body .content p {
+    text-align: center;
+}
+
+/* Estilos adicionales */
+h1 {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#searchButton {
+    text-decoration: none;
+}
+
+#menu {
+    margin-top: 5%;
+}
+

@@ -26,8 +26,7 @@ export const saveFormProd = (
   cost,
   price,
   stock,
-  stockMinimo = 0,
-  drug = ""
+  stockMinimo = 0,  
 ) => {
   return addDoc(collection(db, "productos"), {
     name,
@@ -35,9 +34,7 @@ export const saveFormProd = (
     cost: Number(cost),
     price: Number(price),
     stock: Number(stock),
-    stockMinimo: Number(stockMinimo),
-    drug,
-
+    stockMinimo: Number(stockMinimo), 
     activo: true,
     createdAt: new Date()
   });
@@ -427,24 +424,18 @@ export const getProductByName = async (productName) => {
 };
 
 export const saveOrUpdatePedido = async (productosVendidos) => {
-  try {
-    // ===================================================
+  try {    
     // DOCUMENTO ÚNICO DE PEDIDOS
-    // ===================================================
-
+    
     const pedidoRef = doc(db, "pedidos", "pedidoActivo");
-
-    // ===================================================
-    // OBTENER PEDIDO ACTUAL
-    // ===================================================
+    
+    // OBTENER PEDIDO ACTUAL    
 
     const pedidoSnapshot = await getDoc(pedidoRef);
 
     const acumuladorPedidos = {};
-
-    // ===================================================
-    // PEDIDOS EXISTENTES
-    // ===================================================
+    
+    // PEDIDOS EXISTENTES    
 
     if (pedidoSnapshot.exists()) {
       const pedido = pedidoSnapshot.data();
@@ -469,11 +460,9 @@ export const saveOrUpdatePedido = async (productosVendidos) => {
         });
       }
     }
-
-    // ===================================================
+    
     // AGREGAR PRODUCTOS DE LA NUEVA VENTA
-    // ===================================================
-
+    
     productosVendidos.forEach((producto) => {
       const cantidad = Number(producto.cantidad) || 0;
 
@@ -488,10 +477,8 @@ export const saveOrUpdatePedido = async (productosVendidos) => {
         acumuladorPedidos[producto.producto] += cantidad;
       }
     });
-
-    // ===================================================
-    // ARRAY FINAL
-    // ===================================================
+   
+    // ARRAY FINAL    
 
     const productosAcumulados = Object.entries(
       acumuladorPedidos
@@ -499,11 +486,9 @@ export const saveOrUpdatePedido = async (productosVendidos) => {
       producto,
       cantidad,
     }));
-
-    // ===================================================
+    
     // GUARDAR / ACTUALIZAR
-    // ===================================================
-
+    
     await setDoc(
       pedidoRef,
       {
@@ -556,10 +541,7 @@ export const agregarProductoPedido = async (
   const snapshot =
     await getDocs(pedidosRef);
 
-
-  // ===================================================
-  // ACUMULAR TODOS LOS PEDIDOS EXISTENTES
-  // ===================================================
+  // ACUMULAR TODOS LOS PEDIDOS EXISTENTES  
 
   const acumulador = {};
 
@@ -638,10 +620,7 @@ export const agregarProductoPedido = async (
 
   });
 
-
-  // ===================================================
   // SUMAR PRODUCTO
-  // ===================================================
 
   if (
     !acumulador[productoNombre]
@@ -667,10 +646,7 @@ export const agregarProductoPedido = async (
 
       }));
 
-
-  // ===================================================
-  // GUARDAR EN DOCUMENTO ÚNICO
-  // ===================================================
+  // GUARDAR EN DOCUMENTO ÚNICO  
 
   if (
     snapshot.empty
@@ -975,6 +951,107 @@ export const deleteAllPedidos = async () => {
     await Promise.all(deletes);
   } catch (error) {
     console.error("Error al eliminar todos los pedidos:", error);
+  }
+};
+
+//Clientes
+
+export const saveForm = (dni, name, surname, date, address, phone, email, description) => {
+  return addDoc(collection(db, 'clientes'), { dni, name, surname, date, address, phone, email, description }
+  )
+}
+
+export const consultaForm = (clienteId, fechaCompra, producto, precio, cantidad, precioT, detalles) => {
+  return addDoc(collection(db, 'clientes', clienteId, 'consultas'), { fechaCompra, producto, precio, cantidad, precioT, detalles }
+  )
+}
+
+export const getForm = async () => {
+  const querySnapshot = await getDocs(collection(db, 'clientes'));
+  return querySnapshot;
+};
+
+export const getConsulta = async (clienteId) => {
+  const querySnapshot = await getDocs(collection(db, 'clientes', clienteId, 'consultas'));
+  return querySnapshot;
+};
+
+export const deleteCliente = async (clienteId) => {
+  try {
+    const clienteRef = doc(db, "clientes", clienteId);
+    await deleteDoc(clienteRef);
+    console.log("Cliente eliminado correctamente");
+  } catch (error) {
+    console.error("Error al eliminar el cliente:", error);
+  }
+};
+
+export const deleteConsulta = async (clienteId, consultasId) => {
+  try {
+    const clienteRef = doc(db, "clientes", clienteId, 'consultas', consultasId);
+    await deleteDoc(clienteRef);
+    console.log("Consulta eliminado correctamente");
+  } catch (error) {
+    console.error("Error al eliminar la consulta:", error);
+  }
+};
+
+export const updateCliente = async (clienteId, newData) => {
+  const clienteRef = doc(db, "clientes", clienteId);
+
+  try {
+    await updateDoc(clienteRef, newData);
+    console.log("Cliente actualizado con éxito");
+  } catch (error) {
+    console.error("Error al actualizar el cliente:", error);
+  }
+};
+
+export const updateConsulta = async (clienteId, consultasId, newData) => {
+  const clienteRef = doc(db, "clientes", clienteId, 'consultas', consultasId);
+
+  try {
+    const consultaDoc = await getDoc(clienteRef);
+
+    if (consultaDoc.exists()) {
+      console.log("Nuevo precio:", newData.precio);
+      await updateDoc(clienteRef, newData);
+      console.log("Consulta actualizada con éxito");
+    } else {
+      console.error("Documento no encontrado para actualizar");
+    }
+  } catch (error) {
+    console.error("Error al actualizar la consulta:", error);
+    throw error; // Asegúrate de propagar el error para manejarlo en el lugar correspondiente
+  }
+};
+
+export const getCliente = async (clienteId) => {
+  const clienteRef = doc(db, "clientes", clienteId);
+  const clienteSnapshot = await getDoc(clienteRef);
+
+  if (clienteSnapshot.exists()) {
+    return clienteSnapshot.data();
+  } else {
+    console.error("Cliente no encontrado");
+    return null;
+  }
+};
+
+export const getHistorial = async (clienteId, consultasId) => {
+  if (clienteId && consultasId) { // Comprueba que ambos valores no sean undefined
+    const consultaRef = doc(db, 'clientes', clienteId, 'consultas', consultasId);
+    const consultaSnapshot = await getDoc(consultaRef);
+    console.log(consultasId)
+    if (consultaSnapshot.exists()) {
+      return consultaSnapshot.data();
+    } else {
+      console.error("Consulta no encontrada");
+      return null; // Retorna null para indicar que la consulta no se encontró
+    }
+  } else {
+    console.error("Valores de clienteId o consultasId indefinidos");
+    return null; // Retorna null en caso de valores indefinidos
   }
 };
 
