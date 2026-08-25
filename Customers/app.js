@@ -50,7 +50,7 @@ function updateTable(querySnapshot) {
           <button type="button" class="btn btn-success button-view" data-bs-toggle="modal" data-bs-target="#viewCustomer" data-id="${doc.id}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
             <i class="fas fa-sharp fa-solid fa-eye"></i>
           </button>
-          <button type="button" class="btn btn-info buttom-cliente" data-id="${doc.id}">
+          <button type="button" class="btn btn-info button-cliente" data-id="${doc.id}">
             <i class="fas fa-user"></i>
           </button>
           <button type="button" class="btn btn-warning button-edit" data-bs-toggle="modal" data-bs-target="#editCustomer" data-id="${doc.id}">
@@ -168,16 +168,25 @@ function updateTable(querySnapshot) {
   });
 
 
-  const botonesClientes = document.querySelectorAll(".buttom-cliente");
+  const botonesClientes = document.querySelectorAll(".button-cliente");
   botonesClientes.forEach(function (botonCliente) {
     botonCliente.addEventListener("click", function () {
-      const nombreCliente = this.closest("tr").querySelector("td:nth-child(2)").textContent;
-      const apellidoCliente = this.closest("tr").querySelector("td:nth-child(3)").textContent;
-      const dniCliente = this.closest("tr").querySelector("td:nth-child(1)").textContent;
-      const dateCliente = this.closest("tr").querySelector("td:nth-child(4)").textContent;     
+      const filaCliente = this.closest("tr");
+      const nombreCliente = filaCliente.querySelector("td:nth-child(2)").textContent;
+      const apellidoCliente = filaCliente.querySelector("td:nth-child(3)").textContent;
+      const dniCliente = filaCliente.querySelector("td:nth-child(1)").textContent;
+      const dateCliente = filaCliente.querySelector("td:nth-child(4)").textContent;
       const clienteId = this.getAttribute("data-id");
 
-      window.location.href = `../Queries/query.html?nombre=${nombreCliente}&apellido=${apellidoCliente}&dni=${dniCliente}&date=${dateCliente}&clienteId=${clienteId}`;
+      const parametros = new URLSearchParams({
+        nombre: nombreCliente,
+        apellido: apellidoCliente,
+        dni: dniCliente,
+        date: dateCliente,
+        clienteId,
+      });
+
+      window.location.href = `Account/account.html?${parametros.toString()}`;
     });
   });
 

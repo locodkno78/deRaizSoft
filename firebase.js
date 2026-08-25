@@ -125,6 +125,9 @@ export const getProducts = async () => {
 export const registrarVenta = async (ventaData) => {
   try {
     const ventaRef = doc(collection(db, "ventas"));
+    const clienteVentaRef = ventaData.clienteId
+      ? doc(db, "clientes", ventaData.clienteId, "ventas", ventaRef.id)
+      : null;
 
     await runTransaction(db, async (transaction) => {
 
@@ -158,6 +161,16 @@ export const registrarVenta = async (ventaData) => {
           snapshot: productoSnapshot
         });
 
+      }
+
+      if (clienteVentaRef) {
+        const clienteSnapshot = await transaction.get(
+          doc(db, "clientes", ventaData.clienteId)
+        );
+
+        if (!clienteSnapshot.exists()) {
+          throw new Error("El cliente seleccionado no existe.");
+        }
       }
 
 
@@ -363,9 +376,7 @@ export const registrarVenta = async (ventaData) => {
       // 6. GUARDAR VENTA
       // ==================================================
 
-      transaction.set(
-        ventaRef,
-        {
+      const ventaRegistrada = {
 
           ...ventaData,
 
@@ -396,8 +407,16 @@ export const registrarVenta = async (ventaData) => {
 
           createdAt: serverTimestamp()
 
-        }
-      );
+      };
+
+      transaction.set(ventaRef, ventaRegistrada);
+
+      if (clienteVentaRef) {
+        transaction.set(clienteVentaRef, {
+          ...ventaRegistrada,
+          ventaId: ventaRef.id,
+        });
+      }
 
     });
 
@@ -721,12 +740,12 @@ export const actualizarCantidadPedido = async (
 
   if (
     !productoNombre ||
-    !Number.isInteger(cantidad) ||
+    !Number.isFinite(cantidad) ||
     cantidad <= 0
   ) {
 
     throw new Error(
-      "Producto o cantidad inválida."
+      "Producto o cantidad inválida. La cantidad debe ser un número positivo."
     );
 
   }
@@ -974,6 +993,36 @@ export const getForm = async () => {
 export const getConsulta = async (clienteId) => {
   const querySnapshot = await getDocs(collection(db, 'clientes', clienteId, 'consultas'));
   return querySnapshot;
+};
+
+export const getVentasCliente = async (clienteId) => {
+  const querySnapshot = await getDocs(collection(db, "clientes", clienteId, "ventas"));
+  return querySnapshot.docs.map((ventaDoc) => ({
+    id: ventaDoc.id,
+    ...ventaDoc.data(),
+  }));
+};
+
+export const deleteVentaCliente = async (clienteId, ventaId) => {
+  await deleteDoc(doc(db, "clientes", clienteId, "ventas", ventaId));
+};
+
+export const deleteCuentaCliente = async (clienteId, ventas) => {
+  await Promise.all(
+    ventas.flatMap((venta) => [
+      deleteDoc(doc(db, "clientes", clienteId, "ventas", venta.id)),
+      deleteDoc(doc(db, "ventas", venta.id)),
+    ])
+  );
+};
+
+export const updateVentaCliente = async (clienteId, ventaId, ventaData) => {
+  const ventaActualizada = { ...ventaData, ventaId };
+
+  await Promise.all([
+    updateDoc(doc(db, "clientes", clienteId, "ventas", ventaId), ventaActualizada),
+    updateDoc(doc(db, "ventas", ventaId), ventaActualizada),
+  ]);
 };
 
 export const deleteCliente = async (clienteId) => {

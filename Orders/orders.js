@@ -597,7 +597,7 @@ if (editPedidoForm) {
 
       if (
         !producto ||
-        !Number.isInteger(cantidad) ||
+        !Number.isFinite(cantidad) ||
         cantidad <= 0
       ) {
 
@@ -607,7 +607,7 @@ if (editPedidoForm) {
             "Cantidad inválida",
 
           text:
-            "La cantidad debe ser un número entero mayor a 0.",
+            "La cantidad debe ser un número positivo y puede tener decimales.",
 
           icon:
             "warning",
